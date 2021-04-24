@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="runaway_button.css" />
+    <title>Project - Runaway Button</title>
+  </head>
+  <body>
+    <button id="runaway-btn">Click Me &#129315;</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+    <script>
+      const button = document.getElementById("runaway-btn");
+
+      const animateMove = (element, prop, pixels) =>
+        anime({
+          targets: element,
+          [prop]: `${pixels}px`,
+          easing: "easeOutCirc",
+        });
+
+      ["mouseover", "click"].forEach(function (el) {
+        button.addEventListener(el, function (event) {
+          const top = getRandomNumber(window.innerHeight - this.offsetHeight);
+          const left = getRandomNumber(window.innerWidth - this.offsetWidth);
+
+          animateMove(this, "left", left).play();
+          animateMove(this, "top", top).play();
+        });
+      });
+
+      const getRandomNumber = (num) => {
+        return Math.floor(Math.random() * (num + 1));
+      };
+    </script>
+  </body>
+</html>
